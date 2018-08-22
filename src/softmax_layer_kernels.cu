@@ -34,7 +34,7 @@ void pull_softmax_layer_output(const softmax_layer layer)
     cuda_pull_array(layer.output_gpu, layer.output, layer.inputs*layer.batch);
 }
 
-void forward_softmax_layer_gpu(const softmax_layer layer, network_state state)
+void forward_softmax_layer_gpu(const softmax_layer layer, network state)
 {
     int inputs = layer.inputs / layer.groups;
     int batch = layer.batch * layer.groups;
@@ -42,9 +42,9 @@ void forward_softmax_layer_gpu(const softmax_layer layer, network_state state)
     check_error(cudaPeekAtLastError());
 }
 
-void backward_softmax_layer_gpu(const softmax_layer layer, network_state state)
+void backward_softmax_layer_gpu(const softmax_layer layer, network state)
 {
-    axpy_ongpu(layer.batch*layer.inputs, 1, layer.delta_gpu, 1, state.delta, 1);
+    axpy_gpu(layer.batch*layer.inputs, 1, layer.delta_gpu, 1, state.delta, 1);
 }
 
 /* This is if you want softmax w/o log-loss classification. You probably don't.
