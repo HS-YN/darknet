@@ -52,7 +52,7 @@ OBJDIR_CPP_SHARED=./obj-cpp-shared/
 CC_CPP=g++
 CFLAGS_CPP=-Wno-write-strings -std=c++0x
 
-NVCC=nvcc
+NVCC=/usr/local/cuda-8.0/bin/nvcc
 AR=ar
 ARFLAGS=rcs
 
@@ -83,9 +83,9 @@ endif
 LDFLAGS += -L./3rdparty
 
 ifeq ($(GPU), 1) 
-COMMON+= -DGPU -I/usr/local/cuda/include/
+COMMON+= -DGPU -I/usr/local/cuda-8.0/include/
 CFLAGS+= -DGPU
-LDFLAGS+= -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lcurand
+LDFLAGS+= -L/usr/local/cuda-8.0/lib64 -lcuda -lcudart -lcublas -lcurand
 endif
 
 ifeq ($(CUDNN), 1) 
